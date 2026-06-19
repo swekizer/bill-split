@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://bill-split-six-ruby.vercel.app")
 public class BillController {
 
     private BillService billService;

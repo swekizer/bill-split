@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://bill-split-six-ruby.vercel.app")
 public class UserSelectionController {
 
     public UserSelectionController(UserSelectionService userSelectionService, UserRepository userRepository, BillRepository billRepository) {

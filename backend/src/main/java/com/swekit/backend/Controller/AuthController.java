@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://bill-split-six-ruby.vercel.app")
 public class AuthController {
 
     private final UserRepository userRepository;
