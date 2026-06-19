@@ -1,0 +1,11 @@
+# Backend secrets
+backend/.env
+
+# Frontend secrets  
+frontend/.env
+
+# Don't push node_modules or build artifacts
+frontend/node_modules/
+frontend/dist/
+backend/target/
+.idea
