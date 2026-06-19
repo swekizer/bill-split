@@ -9,7 +9,7 @@ function Login () {
 
     async function handleLogin(){
         const credentials = btoa(email + ':' + password)
-        const response = await fetch('http://localhost:8080/create', {
+        const response = await fetch('https://bill-split-8orc.onrender.com/create', {
             method: 'GET',
             headers: {
                 'Authorization': 'Basic ' + credentials

@@ -8,7 +8,7 @@ function Register(){
     const [upiId, setUpiId] = useState('')
 
     async function handleRegister() {
-    const response = await fetch('http://localhost:8080/register',{
+    const response = await fetch('https://bill-split-8orc.onrender.com/register',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

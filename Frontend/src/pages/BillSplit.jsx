@@ -8,7 +8,7 @@ function BillSplit() {
     const [payment, setPayment] = useState(null)
 
     useEffect(() => {
-        fetch(`http://localhost:8080/bill/${uuid}`)
+        fetch(`https://bill-split-8orc.onrender.com/${uuid}`)
             .then(res => res.json())
             .then(data => setItems(data))
     }, [])
@@ -41,7 +41,7 @@ function BillSplit() {
 
         const selectedItems = Object.values(selected)  // convert object to array
 
-        const response = await fetch('http://localhost:8080/save', {
+        const response = await fetch('https://bill-split-8orc.onrender.com/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

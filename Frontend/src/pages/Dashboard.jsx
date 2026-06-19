@@ -11,7 +11,7 @@ function Dashboard(){
             const password = localStorage.getItem('password')
             const credentials = btoa(email + ':' + password)
 
-            fetch ('http://localhost:8080/bills', {
+            fetch ('https://bill-split-8orc.onrender.com/bills', {
                 headers: {'Authorization': 'Basic ' + credentials }
             })
             .then(res => res.json())

@@ -35,7 +35,7 @@ function CreateBill() {
         const password = localStorage.getItem('password')
         const credentials = btoa(email + ':' + password)
 
-        const response = await fetch('http://localhost:8080/create', {
+        const response = await fetch('https://bill-split-8orc.onrender.com/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
