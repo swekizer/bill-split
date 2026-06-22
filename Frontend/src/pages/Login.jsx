@@ -54,8 +54,8 @@ function Login() {
               <h1 className="font-display text-headline-md font-bold text-primary-fixed-dim">Bill Split</h1>
             </div>
             <div className="space-y-4">
-              <h2 className="font-display text-headline-lg font-bold leading-tight">Effortless expense sharing for modern teams and friends.</h2>
-              <p className="font-body-md text-outline-variant opacity-80">Track bills, settle debts, and maintain social harmony with high-trust financial transparency.</p>
+              <h2 className="font-display text-headline-lg font-bold leading-tight">Split bills, share expenses.</h2>
+              <p className="font-body-md text-outline-variant opacity-80">Scan your receipts using AI and split costs with your friends instantly.</p>
             </div>
           </div>
         </section>
