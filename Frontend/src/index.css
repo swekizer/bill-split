@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", "Inter", sans-serif;
+  --font-display: "Geist", "Inter", sans-serif;
+
+  --color-primary: #006c49;
+  --color-primary-container: #10b981;
+  --color-on-primary-container: #00422b;
+  --color-primary-fixed-dim: #4edea3;
+  --color-primary-fixed: #6ffbbe;
+  
+  --color-secondary: #4648d4;
+  --color-secondary-container: #6063ee;
+  
+  --color-tertiary: #a43073;
+  --color-tertiary-container: #f876ba;
+  
+  --color-background: #f8f9ff;
+  --color-on-background: #0b1c30;
+  
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  
+  --color-outline: #6c7a71;
+  --color-outline-variant: #bbcabf;
+  
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1.5rem;
+  
+  --spacing-stack-sm: 4px;
+  --spacing-stack-md: 12px;
+  --spacing-stack-lg: 24px;
+  --spacing-base: 8px;
+  --spacing-container-padding: 20px;
+  --spacing-gutter: 16px;
+}
+
+body {
+  font-family: 'Geist', sans-serif;
+  background-color: #f8f9ff;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.auth-card {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.input-focus-effect:focus-within {
+  box-shadow: 0 0 0 2px #006c49;
+  background-color: #ffffff !important;
+}
+
+.tab-active {
+  color: #006c49;
+  border-bottom: 2px solid #006c49;
+}
+
+/* Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.float-anim {
+  animation: float 6s ease-in-out infinite;
+}
