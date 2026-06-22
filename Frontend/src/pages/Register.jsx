@@ -59,9 +59,9 @@ function Register() {
       </div>
 
       {/* Main Container */}
-      <main className="w-full max-w-5xl flex flex-col md:flex-row bg-white rounded-[2rem] shadow-2xl overflow-hidden min-h-[700px] border border-surface-container-high">
+      <main className="w-full max-w-5xl flex flex-col md:flex-row bg-white rounded-[2rem] shadow-2xl overflow-hidden min-h-[600px] border border-surface-container-high">
         {/* Brand Side (Visible on MD+) */}
-        <section className="hidden md:flex flex-col justify-between w-5/12 bg-on-background p-12 text-white">
+        <section className="hidden md:flex flex-col justify-center w-5/12 bg-on-background p-12 text-white">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-primary-fixed-dim text-4xl">account_balance_wallet</span>
@@ -70,22 +70,6 @@ function Register() {
             <div className="space-y-4">
               <h2 className="font-display text-headline-lg font-bold leading-tight">Effortless expense sharing for modern teams and friends.</h2>
               <p className="font-body-md text-outline-variant opacity-80">Track bills, settle debts, and maintain social harmony with high-trust financial transparency.</p>
-            </div>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden h-64 shadow-xl border border-white/10">
-            <div className="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent z-10"></div>
-            <img 
-              className="w-full h-full object-cover" 
-              alt="Clean futuristic finance render" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGuXJ25huW-zHzgbRG1dtKENszHT905vVnL6fAjHc5wjuRYfEMYba3CqjgEcCi3fjmpLw7Gi9zJnoyUemSUzcnsYWXqaIe179hCD9kjXX-_7dVpKOSje9h5IlJc7_wiZdjRDlR54lH23kqJY6PRNIhKex3rw3f-hNszbND-q_z6yx-F6msVSt30B13yV6sj7nPEiR2E9TopWy7cqABFgT6Mt3Wc7fyBqGyOj1MT2ioL6lcYUmqAHEQy5VrZPdZttUliZud7J_f-F-e"
-            />
-            <div className="absolute bottom-4 left-4 z-20">
-              <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full border-2 border-on-background bg-surface-container-high"></div>
-                <div className="w-8 h-8 rounded-full border-2 border-on-background bg-primary-container"></div>
-                <div className="w-8 h-8 rounded-full border-2 border-on-background bg-secondary-container"></div>
-              </div>
-              <p className="text-label-sm mt-2 font-medium">Join 10k+ users managing shared ledgers</p>
             </div>
           </div>
         </section>
@@ -102,7 +86,7 @@ function Register() {
             {/* Toggle Tabs */}
             <div className="flex border-b border-surface-container-high mb-6">
               <button 
-                className="flex-1 pb-4 font-display font-semibold text-label-md transition-all duration-200 text-on-surface-variant hover:text-primary"
+                className="flex-1 pb-4 font-display font-semibold text-label-md transition-all duration-200 text-on-surface-variant hover:text-primary cursor-pointer"
                 onClick={() => navigate("/login")}
               >
                 Sign In
@@ -192,7 +176,7 @@ function Register() {
                       required
                     />
                     <button 
-                      className="text-outline hover:text-on-surface transition-colors" 
+                      className="text-outline hover:text-on-surface transition-colors cursor-pointer" 
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                     >
@@ -213,12 +197,6 @@ function Register() {
                 </button>
               </form>
             </div>
-
-            <p className="mt-8 text-center text-label-sm text-outline px-4">
-              By continuing, you agree to Bill Split's{" "}
-              <a className="text-primary font-bold hover:underline" href="#">Terms of Service</a> and{" "}
-              <a className="text-primary font-bold hover:underline" href="#">Privacy Policy</a>.
-            </p>
           </div>
         </section>
       </main>

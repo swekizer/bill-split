@@ -213,10 +213,6 @@ function BillSplit() {
             {/* Receipt Summary Card */}
             <section>
               <div className="glass-card rounded-2xl p-6 border border-outline-variant/30 shadow-sm relative overflow-hidden bg-white">
-                <div className="absolute top-0 right-0 bg-primary-container text-white px-4 py-1.5 rounded-bl-2xl text-label-sm font-bold flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
-                  AI EXTRACTED
-                </div>
                 <div className="flex flex-col gap-1">
                   <h1 className="font-display text-2xl font-bold text-on-surface">Bill Receipt</h1>
                   <p className="text-xs text-on-surface-variant flex items-center gap-1.5 mt-1">
@@ -306,14 +302,6 @@ function BillSplit() {
         {/* Payment Success Details */}
         {payment && (
           <div className="bg-white border border-primary/20 rounded-2xl p-6 shadow-lg mt-8 space-y-6 animate-fade-in">
-            <div className="flex items-center gap-3 text-primary">
-              <span className="material-symbols-outlined text-3xl font-bold">check_circle</span>
-              <div>
-                <h3 className="font-display font-bold text-xl">Payment Details Generated</h3>
-                <p className="text-xs text-on-surface-variant mt-0.5">UPI payee parameters have been successfully configured.</p>
-              </div>
-            </div>
-
             <div className="p-4 bg-slate-50 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-100">
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-outline">You Claimed Total</p>

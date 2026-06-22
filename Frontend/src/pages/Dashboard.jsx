@@ -70,10 +70,6 @@ function Dashboard() {
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>dashboard</span>
             <span className="font-body-md text-body-md font-medium">Dashboard</span>
           </a>
-          <a className="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high/50 rounded-xl px-4 py-3 transition-all duration-200" href="#" onClick={() => navigate("/dashboard")}>
-            <span className="material-symbols-outlined">receipt_long</span>
-            <span className="font-body-md text-body-md">Active Bills</span>
-          </a>
         </nav>
         <div className="mt-auto space-y-2 pt-6 border-t border-outline-variant/10">
           <button 
