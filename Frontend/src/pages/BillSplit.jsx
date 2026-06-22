@@ -44,23 +44,23 @@ function BillSplit() {
     }
   }
 
-  function toggleItem(item) {
+  function toggleItem(idx, item) {
     setSelected((prev) => {
-      if (prev[item.name]) {
+      if (prev[idx]) {
         const copy = { ...prev };
-        delete copy[item.name];
+        delete copy[idx];
         return copy;
       } else {
-        return { ...prev, [item.name]: { ...item, quantity: 1 } };
+        return { ...prev, [idx]: { ...item, quantity: 1 } };
       }
     });
   }
 
-  function changeQty(item, qty) {
+  function changeQty(idx, item, qty) {
     const numericQty = Math.max(1, Math.min(item.quantity, Number(qty)));
     setSelected((prev) => ({
       ...prev,
-      [item.name]: { ...item, quantity: numericQty },
+      [idx]: { ...item, quantity: numericQty },
     }));
   }
 
@@ -244,15 +244,15 @@ function BillSplit() {
 
             {/* Bill Items List */}
             <div className="space-y-3">
-              {items.map((item) => {
-                const isSelected = !!selected[item.name];
+              {items.map((item, idx) => {
+                const isSelected = !!selected[idx];
                 return (
                   <div 
-                    key={item.name}
+                    key={idx}
                     className={`flex items-center justify-between p-4 bg-white border rounded-xl shadow-sm hover:border-primary-container cursor-pointer transition-all ${
                       isSelected ? "border-primary-container bg-primary/5" : "border-slate-100"
                     }`}
-                    onClick={() => toggleItem(item)}
+                    onClick={() => toggleItem(idx, item)}
                   >
                     <div className="flex items-center gap-4 flex-1">
                       <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
@@ -275,8 +275,8 @@ function BillSplit() {
                             type="number"
                             min="1"
                             max={item.quantity}
-                            value={selected[item.name].quantity}
-                            onChange={(e) => changeQty(item, e.target.value)}
+                            value={selected[idx].quantity}
+                            onChange={(e) => changeQty(idx, item, e.target.value)}
                             className="w-12 bg-white text-center border border-slate-200 rounded text-sm font-semibold p-0.5 outline-none focus:border-primary"
                           />
                         </div>
@@ -285,7 +285,7 @@ function BillSplit() {
                         className={`w-6 h-6 border-2 rounded-md flex items-center justify-center transition-all cursor-pointer ${
                           isSelected ? "bg-primary border-primary" : "border-slate-300"
                         }`}
-                        onClick={() => toggleItem(item)}
+                        onClick={() => toggleItem(idx, item)}
                       >
                         <span className="material-symbols-outlined text-white text-[18px] font-bold">
                           {isSelected ? "check" : ""}
