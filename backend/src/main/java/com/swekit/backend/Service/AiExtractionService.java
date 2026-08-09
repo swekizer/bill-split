@@ -61,8 +61,12 @@ public class AiExtractionService {
                 .text(promptText)
                 .media(imageMedia)
                 .build();
-        ChatResponse response = chatModel.call(new Prompt(userMessage));
 
-        return response.getResult().getOutput().getText();
+        try {
+            ChatResponse response = chatModel.call(new Prompt(userMessage));
+            return response.getResult().getOutput().getText();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to extract items using Gemini AI: " + e.getMessage() + ". Please verify GEMINI_API_KEY environment variable.", e);
+        }
     }
 }
