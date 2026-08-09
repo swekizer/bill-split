@@ -5,11 +5,14 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 
-import java.net.MalformedURLException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 
 @Service
 public class AiExtractionService {
@@ -48,13 +51,27 @@ public class AiExtractionService {
     - If grand total is not visible, return original unit prices without tax adjustment.
     - Include zero-priced items as-is (price: 0).
     """;
-        // Pass URL directly as a string resource
-        UrlResource imageResource = null;
+
+        byte[] imageBytes;
         try {
-            imageResource = new UrlResource(imageUrl);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Invalid image URL: " + imageUrl, e);
+            URL url = URI.create(imageUrl).toURL();
+            URLConnection connection = url.openConnection();
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
+            try (InputStream in = connection.getInputStream()) {
+                imageBytes = in.readAllBytes();
+            }
+        } catch (Exception e) {
+            System.err.println("CRITICAL ERROR: Failed to download receipt image from URL: " + imageUrl);
+            e.printStackTrace();
+            throw new RuntimeException("Failed to download receipt image: " + e.getMessage(), e);
         }
+
+        ByteArrayResource imageResource = new ByteArrayResource(imageBytes) {
+            @Override
+            public String getFilename() {
+                return "receipt.jpg";
+            }
+        };
 
         org.springframework.util.MimeType mimeType = MimeTypeUtils.IMAGE_JPEG;
         if (imageUrl != null && imageUrl.toLowerCase().contains(".png")) {
@@ -72,7 +89,9 @@ public class AiExtractionService {
             ChatResponse response = chatModel.call(new Prompt(userMessage));
             return response.getResult().getOutput().getText();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to extract items using Gemini AI: " + e.getMessage() + ". Please verify GEMINI_API_KEY environment variable.", e);
+            System.err.println("CRITICAL ERROR calling Gemini AI API: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to extract items using Gemini AI: " + e.getMessage(), e);
         }
     }
-}
+}
