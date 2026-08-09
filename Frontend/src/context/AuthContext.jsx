@@ -18,24 +18,29 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const credentials = btoa(email + ":" + password);
-    const response = await fetch(`${API_URL}/create`, {
-      method: "GET",
-      headers: {
-        Authorization: "Basic " + credentials,
-      },
-    });
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // Spring Security returns 405 (Method Not Allowed) for GET on /create because it is a POST endpoint,
-    // but a 405 indicates authentication was successful. 401 would mean unauthorized.
-    if (response.ok || response.status === 405) {
-      localStorage.setItem("email", email);
-      localStorage.setItem("password", password);
-      const userData = { email, password, credentials };
-      setUser(userData);
-      return { success: true };
-    } else {
-      return { success: false, error: "Wrong email or password" };
+      if (response.ok) {
+        const data = await response.json();
+        const credentials = btoa(email + ":" + password);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        const userData = { email, password, credentials, ...data };
+        setUser(userData);
+        return { success: true };
+      } else {
+        const data = await response.json().catch(() => ({}));
+        return { success: false, error: data.message || "Wrong email or password" };
+      }
+    } catch (err) {
+      return { success: false, error: err.message || "Network error during login" };
     }
   };
 

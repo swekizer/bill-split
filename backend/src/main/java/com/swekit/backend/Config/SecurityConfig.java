@@ -1,6 +1,6 @@
 package com.swekit.backend.Config;
 
-
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -25,13 +25,14 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register").permitAll()
-                        .requestMatchers("/bill/**").permitAll()
-                        .requestMatchers("/save").authenticated()
-                        .requestMatchers("/bills").authenticated()
+                        .requestMatchers("/", "/health", "/register", "/login", "/bill/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"" + authException.getMessage() + "\"}");
+                }));
         return http.build();
     }
 
@@ -44,13 +45,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://bill-split-six-ruby.vercel.app")); // your React app
+        config.setAllowedOrigins(List.of(
+                "https://bill-split-six-ruby.vercel.app",
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "http://localhost:5174"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",config); // apply to all routes
+        source.registerCorsConfiguration("/**", config); // apply to all routes
         return source;
     }
 }
+
