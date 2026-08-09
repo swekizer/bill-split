@@ -36,13 +36,28 @@ public class BillService {
 
 
     public static ArrayList<BillItem> convertStringToArrayList(String aiResponse) throws JsonProcessingException {
+        if (aiResponse == null || aiResponse.isBlank()) {
+            return new ArrayList<>();
+        }
+
+        // Clean markdown code blocks (```json ... ``` or ``` ...)
+        String cleanJson = aiResponse.trim();
+        if (cleanJson.startsWith("```")) {
+            cleanJson = cleanJson.replaceAll("^```[a-zA-Z]*", "").replaceAll("```$", "").trim();
+        }
+
+        // Extract JSON array substring [ ... ]
+        int firstBracket = cleanJson.indexOf('[');
+        int lastBracket = cleanJson.lastIndexOf(']');
+        if (firstBracket != -1 && lastBracket != -1 && lastBracket > firstBracket) {
+            cleanJson = cleanJson.substring(firstBracket, lastBracket + 1);
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<BillItem> billItems = objectMapper.readValue(
-                aiResponse,
+        return objectMapper.readValue(
+                cleanJson,
                 new TypeReference<ArrayList<BillItem>>() {}
         );
-
-        return billItems;
     }
 
     public static String sharingUrl(){

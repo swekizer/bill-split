@@ -53,9 +53,15 @@ public class AiExtractionService {
         try {
             imageResource = new UrlResource(imageUrl);
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Invalid image URL: " + imageUrl, e);
         }
-        Media imageMedia = new Media(MimeTypeUtils.IMAGE_JPEG, imageResource);
+
+        org.springframework.util.MimeType mimeType = MimeTypeUtils.IMAGE_JPEG;
+        if (imageUrl != null && imageUrl.toLowerCase().contains(".png")) {
+            mimeType = MimeTypeUtils.IMAGE_PNG;
+        }
+
+        Media imageMedia = new Media(mimeType, imageResource);
 
         UserMessage userMessage = UserMessage.builder()
                 .text(promptText)
